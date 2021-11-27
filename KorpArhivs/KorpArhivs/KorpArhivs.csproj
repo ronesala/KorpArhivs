@@ -1,20 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-KorpArhivs-D8F5FA4A-3029-4840-B061-A070A9CF9C1E</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Areas\Identity\Pages\NewFolder\**" />
-    <Compile Remove="wwwroot\NewFolder1\**" />
-    <Content Remove="Areas\Identity\Pages\NewFolder\**" />
-    <Content Remove="wwwroot\NewFolder1\**" />
-    <EmbeddedResource Remove="Areas\Identity\Pages\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
-    <None Remove="Areas\Identity\Pages\NewFolder\**" />
-    <None Remove="wwwroot\NewFolder1\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.19" />
@@ -22,10 +11,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.19" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.19" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.19" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
