@@ -6,11 +6,11 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item border-end-lg">
-            <a class="d-block" href="#"><i class="fas fa-user-alt"></i></a>
+            <a class="d-block text-light" href="#"><i class="fas fa-user-alt"></i></a>
         </li>
-        <li class="nav-item pe-3">
+        <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Iziet</button>
+                <button type="submit" class="nav-link btn btn-link text-light">Iziet</button>
             </form>
         </li>
     }
@@ -18,10 +18,10 @@
     {
 
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
         </li>
     }
 </ul>
