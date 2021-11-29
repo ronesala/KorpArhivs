@@ -1,0 +1,125 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row align-items-center pt-3">
+    <div class="row mx-0 align-items-center">
+        <div class="col-md-6 border-end-md p-4 p-sm-5">
+            <h2 class="h3 mb-4 mb-sm-5">Join Finder. <i><small>(Jānoskaidro par saturu)</small></i> <br>Get premium benefits: </h2>
+            <ul class="list-unstyled mb-4 mb-sm-5">
+                <li class="d-flex mb-2"><i class="fi-check-circle text-primary mt-1 me-2"></i><span>Add and promote your listings <i><small>(Jānoskaidro par saturu)</small></i></span></li>
+                <li class="d-flex mb-2"><i class="fi-check-circle text-primary mt-1 me-2"></i><span>Easily manage your wishlist <i><small>(Jānoskaidro par saturu)</small></i></span></li>
+                <li class="d-flex mb-0"><i class="fi-check-circle text-primary mt-1 me-2"></i><span>Leave reviews <i><small>(Jānoskaidro par saturu)</small></i></span></li>
+            </ul><img class="d-block mx-auto" src="~/images/signup.svg" width="344" alt="Illustartion">
+            <div class="mt-sm-4 pt-md-3">Jau esi reģistrējies? <a href="#signin-modal" data-bs-toggle="modal" data-bs-dismiss="modal">Ienākt</a></div>
+        </div>
+        <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+            <a class="btn btn-outline-info w-100 mb-3" href="#"><i class="fi-google fs-lg me-1"></i>Pieslēgties ar Google</a><a class="btn btn-outline-info w-100 mb-3" href="#"><i class="fi-facebook fs-lg me-1"></i>Pieslēgties ar Facebook</a>
+            <div class="d-flex align-items-center py-3 mb-3">
+                <hr class="w-100">
+                <div class="px-3">vai</div>
+                <hr class="w-100">
+            </div>
+            <form id="account" method="post">
+                <div class="mb-4">
+                    <label asp-for="Input.FullName" class="form-label">Vārds un Uzvārds</label>
+                    <input asp-for="Input.FullName" class="form-control" placeholder="Vārds Uzvārds" />
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Input.Email" class="form-label">E-pasts</label>
+                    <input asp-for="Input.Email" class="form-control" placeholder="E-pasts" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Input.Password" class="form-label">Parole</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <div class="password-toggle">
+                        <input asp-for="Input.Password" class="form-control" placeholder="Parole" />
+                        <label class="password-toggle-btn" aria-label="Parādīt/paslēpt paroli">
+                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Input.ConfirmPassword" class="form-label">Parole atkārtoti</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    <div class="password-toggle">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Parole atkārtoti" />
+                        <label class="password-toggle-btn" aria-label="Parādīt/paslēpt paroli">
+                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="agree-to-terms" required="">
+                    <label class="form-check-label" for="agree-to-terms">Es piekrītu <a href="#">lietošanas noteikumiem</a> un <a href="#">privātuma noteikumiem</a></label>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 mb-5" type="submit">Reģistrēties</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="row">
+    <div class="col-md-4">
+    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <h4>Create a new account.</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+    <label asp-for="Input.Email" class="form-label"></label>
+    <input asp-for="Input.Email" class="form-control" />
+    <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+    <label asp-for="Input.Password" class="form-label"></label>
+    <input asp-for="Input.Password" class="form-control" />
+    <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+    <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+    <input asp-for="Input.ConfirmPassword" class="form-control" />
+    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+    <section>
+    <h4>Use another service to register.</h4>
+    <hr />
+    @{
+    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+    {
+    <div>
+    <p>
+    There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+    for details on setting up this ASP.NET application to support logging in via external services.
+    </p>
+    </div>
+    }
+    else
+    {
+    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+    <div>
+    <p>
+    @foreach (var provider in Model.ExternalLogins)
+    {
+    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+    }
+    </p>
+    </div>
+    </form>
+    }
+    }
+    </section>
+    </div>
+    </div>*@
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
