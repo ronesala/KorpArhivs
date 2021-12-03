@@ -1,0 +1,73 @@
+﻿@page
+@model KorpArhivs.Pages.UploadFormModel
+@{
+}
+
+<div class="">
+    <div class="pt-3 pb-1">
+        <h2>Pievienot notikumu:</h2>
+    </div>
+    <div class="p-3">
+        <form action="#">
+            <div class="row row-grid align-items-start mb-5 mb-lg-7 mt-3">
+                <div class="col-6 mt-3 mb-2 me-3">
+                    <div class="mt-2 mb-3">
+                        <h5>Notikuma nosaukums:</h5>
+                        <input type="text" class="form-control mb-2" placeholder="notikuma nosaukums" name="text" aria-label="EventName" required>
+                    </div>
+                    <div class="mt-2 mb-3">
+                        <h5>Notikuma datums:</h5>
+                        <input type="datetime" class="form-control mb-2" placeholder="piemēram: 22.03.2000" name="date" aria-label="EventDate" required>
+                    </div>
+                    <div class="mt-2 mb-3">
+                        <h5>Notikuma apraksts:</h5>
+                        <input type="text" class="form-control mb-2" placeholder="apraksts" name="text" rows="3" aria-label="EventDescription" required>
+                    </div>
+                    <div class="mt-2 mb-3">
+                        <h5>Atslēgas vārdi:</h5>
+                        <input type="text" class="form-control mb-2" placeholder="" name="text" aria-label="Keyword" required>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-6 ml-lg-auto mt-3 mb-2">
+                    <div class="mt-2 mb-3">
+                        <h5>Notikuma kategorija:</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Bildes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                PDF
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                            <label class="form-check-label" for="flexRadioDefault3">
+                                Dažādi
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 mt-2 mb-3">
+                        <h5>Notikuma apakškategorija:</h5>
+                        <input type="text" class="form-control mb-2" placeholder="apakškategorija" name="text" aria-label="EventSubcategory" required>
+                    </div>
+                    <div class="col-12 mt-2 mb-3">
+                        <h5>Pievienojiet failu:</h5>
+                        <div class="mb-3">
+                            @* <label for="formFileMultiple" class="form-label">Multiple files input example</label>*@
+                            <input class="form-control" type="file" id="formFileMultiple" multiple>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Saglabāt</a>
+                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atcelt</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
