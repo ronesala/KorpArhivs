@@ -23,16 +23,16 @@ namespace KorpArhivs.Pages
         {
             //Nesapratu kaa pareizi pievienot...
 
-            var tableName = _configuration["StorageTables:Events"];
+            var tableName = _configuration["StorageTables:Galleries"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
 
             var tableClient = new TableClient(connectionString, tableName);
 
-            var events = tableClient.Query<TableEntity>();
+            var galleries = tableClient.Query<TableEntity>();
 
             Galleries = new List<Gallery>();
 
-            foreach (var gallery in events)
+            foreach (var gallery in galleries)
             {
                 Galleries.Add(new Gallery
                 {
@@ -46,38 +46,38 @@ namespace KorpArhivs.Pages
 
             //Events = new List<Event>
             //{
-                //new Event
-                //{
-                //    EventName = "Pirmais notikums",
-                //    EventDate = new DateTime(2020, 08, 13),
-                //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                //    Keyword = "",
-                //    EventGroup = "Bildes"
-                //},
-                //new Event
-                //{
-                //    EventName = "Otrais notikums",
-                //    EventDate = new DateTime(2000, 07, 03),
-                //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                //    Keyword = "",
-                //    EventGroup = "Bildes"
-                //},
-                //new Event
-                //{
-                //    EventName = "Tresais notikums",
-                //    EventDate = new DateTime(2018, 10, 20),
-                //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                //    Keyword = "",
-                //    EventGroup = "Bildes"
-                //},
-                //new Event
-                //{
-                //    EventName = "Ceturtais notikums",
-                //    EventDate = new DateTime(2001, 02, 28),
-                //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                //    Keyword = "",
-                //    EventGroup = "Bildes"
-                //}
+            //new Event
+            //{
+            //    EventName = "Pirmais notikums",
+            //    EventDate = new DateTime(2020, 08, 13),
+            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            //    Keyword = "",
+            //    EventGroup = "Bildes"
+            //},
+            //new Event
+            //{
+            //    EventName = "Otrais notikums",
+            //    EventDate = new DateTime(2000, 07, 03),
+            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            //    Keyword = "",
+            //    EventGroup = "Bildes"
+            //},
+            //new Event
+            //{
+            //    EventName = "Tresais notikums",
+            //    EventDate = new DateTime(2018, 10, 20),
+            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            //    Keyword = "",
+            //    EventGroup = "Bildes"
+            //},
+            //new Event
+            //{
+            //    EventName = "Ceturtais notikums",
+            //    EventDate = new DateTime(2001, 02, 28),
+            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            //    Keyword = "",
+            //    EventGroup = "Bildes"
+            //}
 
             //};
 
