@@ -44,6 +44,18 @@ namespace KorpArhivs.Pages
             public string Category { get; set; }
 
             [Required]
+            [Display(Name = "Kategorija:")]
+            public bool Images { get; set; }
+
+            [Required]
+            [Display(Name = "Kategorija:")]
+            public bool Documents { get; set; }
+
+            [Required]
+            [Display(Name = "Kategorija:")]
+            public bool Other { get; set; }
+
+            [Required]
             [Display(Name = "Notikuma apakškategorija:")]
             public string EventSubcategory { get; set; }
 
