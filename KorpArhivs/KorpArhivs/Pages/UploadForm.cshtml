@@ -10,7 +10,7 @@
     <div class="p-3">
         <form action="#">
             <div class="row row-grid align-items-start mb-5 mb-lg-7 mt-3">
-                <div class="col-6 mt-3 mb-2 me-3">
+                <div class="col-5 col-lg-5 mt-3 mb-2 me-3">
                     <div class="mt-2 mb-3">
                         <h5>Notikuma nosaukums:</h5>
                         <input type="text" class="form-control mb-2" placeholder="notikuma nosaukums" name="text" aria-label="EventName" required>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-6 ml-lg-auto mt-3 mb-2">
+                <div class="col-5 col-lg-5 ml-lg-auto mt-3 mb-2">
                     <div class="mt-2 mb-3">
                         <h5>Notikuma kategorija:</h5>
                         <div class="form-check">
@@ -62,11 +62,16 @@
                             <input class="form-control" type="file" id="formFileMultiple" multiple>
                         </div>
                     </div>
+                    <div class="d-flex justify-content-end">
+                        <a href="#" target="_blank" class="btn btn-secondary d-none d-md-inline mr-md-3">Saglabāt</a>
+                        <a href="#" target="_blank" class="btn btn-secondary btn-md d-none d-md-inline">Atcelt</a>
+                    </div>
+@*                    <div class="row align-items-end col-5">
+                        <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Saglabāt</a>
+                        <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atcelt</a>
+                    </div>*@
                 </div>
-                <div class="row">
-                    <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Saglabāt</a>
-                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Atcelt</a>
-                </div>
+
             </div>
         </form>
     </div>
