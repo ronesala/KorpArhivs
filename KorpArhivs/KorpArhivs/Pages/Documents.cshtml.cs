@@ -22,12 +22,12 @@ namespace KorpArhivs.Pages
         public void OnGet()
         {
 
-            var tableName = _configuration["StorageTables:Documents"];
+            var tableName = _configuration["StorageTables:Events"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
 
             var tableClient = new TableClient(connectionString, tableName);
 
-            var documents = tableClient.Query<TableEntity>();
+            var documents = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Dokumenti'");
 
             Documents = new List<Document>();
 

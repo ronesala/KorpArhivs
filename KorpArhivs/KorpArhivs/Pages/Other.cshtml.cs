@@ -1,4 +1,4 @@
-using Azure.Data.Tables;
+﻿using Azure.Data.Tables;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -22,12 +22,12 @@ namespace KorpArhivs.Pages
         public void OnGet()
         {
 
-            var tableName = _configuration["StorageTables:Various"];
+            var tableName = _configuration["StorageTables:Events"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
 
             var tableClient = new TableClient(connectionString, tableName);
 
-            var various = tableClient.Query<TableEntity>();
+            var various = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Dažādi'");
 
             Various = new List<Other>();
 
