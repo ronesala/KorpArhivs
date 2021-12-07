@@ -21,14 +21,13 @@ namespace KorpArhivs.Pages
 
         public void OnGet()
         {
-            //Nesapratu kaa pareizi pievienot...
 
-            var tableName = _configuration["StorageTables:Galleries"];
+            var tableName = _configuration["StorageTables:Events"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
 
             var tableClient = new TableClient(connectionString, tableName);
 
-            var galleries = tableClient.Query<TableEntity>();
+            var galleries = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Bildes'");
 
             Galleries = new List<Gallery>();
 
