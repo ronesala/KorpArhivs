@@ -8,52 +8,41 @@
         <h2>Pievienot notikumu:</h2>
     </div>
     <div class="p-3">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="row row-grid align-items-start mb-5 mb-lg-7 mt-3">
                 <div class="col-5 col-lg-5 mt-3 mb-2 me-3">
                     <div class="mt-2 mb-3">
                         <label asp-for="Input.EventName" class="form-label"></label>
-                        <input asp-for="Input.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" name="text" aria-label="EventName">
+                        <input asp-for="Input.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" aria-label="EventName">
                     </div>
                     <div class="mt-2 mb-3">
                         <label asp-for="Input.EventDate" class="form-label"></label>
-                        <input asp-for="Input.EventDate" type="date" class="form-control mb-2" placeholder="piemēram: 22.03.2000" name="date" aria-label="EventDate" required>
+                        <input asp-for="Input.EventDate" type="date" class="form-control mb-2" placeholder="piemēram: 22.03.2000" aria-label="EventDate">
                     </div>
                     <div class="mt-2 mb-3">
                         <label asp-for="Input.EventDescription" class="form-label"></label>
-                        <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" name="text" rows="3" aria-label="EventDescription" required></textarea>
+                        <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="3" aria-label="EventDescription"></textarea>
                     </div>
                     <div class="mt-2 mb-3">
                         <label asp-for="Input.Keyword" class="form-label"></label>
-                        <input asp-for="Input.Keyword" type="text" class="form-control mb-2" placeholder="" name="text" aria-label="Keyword" required>
+                        <input asp-for="Input.Keyword" type="text" class="form-control mb-2" placeholder="" aria-label="Keyword">
                     </div>
                 </div>
 
                 <div class="col-5 col-lg-5 ml-lg-auto mt-3 mb-2">
                     <div class="mt-2 mb-3">
-                        <label class="form-label">Category</label>
-                        <div class="form-check">
-                            <input asp-for="Input.Images" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Bildes
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="Input.Documents" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Dokumenti
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="Input.Other" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                            <label class="form-check-label" for="flexRadioDefault3">
-                                Dažādi
-                            </label>
-                        </div>
+                        <label asp-for="Input.Category" class="form-label"></label>
+                        @foreach (var category in Model.Category)
+                        {
+                            <div class="form-check">
+                                <input asp-for="Input.Category" class="form-check-input" type="radio" value="@category">
+                                <label class="form-check-label">@category</label>
+                            </div>
+                        }
                     </div>
                     <div class="col-12 mt-2 mb-3">
                         <label asp-for="Input.EventSubcategory" class="form-label"></label>
-                        <input asp-for="Input.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" name="text" aria-label="EventSubcategory" required>
+                        <input asp-for="Input.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" aria-label="EventSubcategory">
                     </div>
                     <div class="col-12 mt-2 mb-3">
                         <label asp-for="Input.Upload" class="form-label"></label>

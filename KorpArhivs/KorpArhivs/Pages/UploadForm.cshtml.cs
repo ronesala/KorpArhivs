@@ -11,11 +11,13 @@ namespace KorpArhivs.Pages
         [BindProperty]
         public UploadModel Input { get; set; }
 
-        public void OnGet()
+        public string[] Category = new[] { "Bildes", "Dokumenti", "Dažādi" };
+    
+    public void OnGet()
         {
         }
 
-        public void OnPost(UploadModel model)
+        public void OnPost()
         {
 
         }
@@ -42,18 +44,6 @@ namespace KorpArhivs.Pages
             [Required]
             [Display(Name = "Kategorija:")]
             public string Category { get; set; }
-
-            [Required]
-            [Display(Name = "Kategorija:")]
-            public bool Images { get; set; }
-
-            [Required]
-            [Display(Name = "Kategorija:")]
-            public bool Documents { get; set; }
-
-            [Required]
-            [Display(Name = "Kategorija:")]
-            public bool Other { get; set; }
 
             [Required]
             [Display(Name = "Notikuma apakškategorija:")]
