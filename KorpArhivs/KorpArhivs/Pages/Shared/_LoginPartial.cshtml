@@ -5,6 +5,9 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-page="/UploadForm">Pievienot notikumu</a>
+        </li>
         <li class="nav-item pt-2">
             <a class="text-light" href="#"><i class="fas fa-user-alt fa-lg"></i></a>
         </li>
@@ -16,12 +19,11 @@
     }
     else
     {
-
         <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
+            <form class="form-inline text-light" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</form>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
+        <li class="nav-item pe-3">
+            <form class="form-inline text-light" asp-area="Identity" asp-page="/Account/Login">Ienākt</form>
         </li>
     }
 </ul>
