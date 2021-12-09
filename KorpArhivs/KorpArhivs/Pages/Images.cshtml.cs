@@ -36,6 +36,7 @@ namespace KorpArhivs.Pages
                 Galleries.Add(new Gallery
                 {
                     EventName = gallery.GetString("Name"),
+                    Id = gallery.RowKey,
                     EventDate = gallery.GetDateTimeOffset("Date").Value,
                     EventDescription = gallery.GetString("Description"),
                     Keyword = gallery.GetString("Keyword"),
@@ -85,11 +86,11 @@ namespace KorpArhivs.Pages
 
     public class Gallery
     {
+        public string EventGroup { get; set; }
+        public string Id { get; set; }
         public string EventName { get; set; }
         public System.DateTimeOffset EventDate { get; set; }
         public string EventDescription { get; set; }
         public string Keyword { get; set; }
-        public string EventGroup { get; set; }
-
     }
 }
