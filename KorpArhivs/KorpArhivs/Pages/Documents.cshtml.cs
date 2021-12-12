@@ -36,6 +36,7 @@ namespace KorpArhivs.Pages
                 Documents.Add(new Document
                 {
                     EventName = document.GetString("Name"),
+                    Id = document.RowKey,
                     EventDate = document.GetDateTimeOffset("Date").Value,
                     EventDescription = document.GetString("Description"),
                     Keyword = document.GetString("Keyword"),
@@ -48,11 +49,13 @@ namespace KorpArhivs.Pages
 
     public class Document
     {
+        public string EventGroup { get; set; }
+        public string Id { get; set; }
         public string EventName { get; set; }
         public System.DateTimeOffset EventDate { get; set; }
         public string EventDescription { get; set; }
         public string Keyword { get; set; }
-        public string EventGroup { get; set; }
+
 
     }
 }
