@@ -73,3 +73,8 @@ body {
 .logo {
     height: 50px;
 }
+
+.fileIcons{
+    height: 100px;
+    width: 100px;
+}

@@ -36,6 +36,7 @@ namespace KorpArhivs.Pages
                 Various.Add(new Other
                 {
                     EventName = other.GetString("Name"),
+                    Id = other.RowKey,
                     EventDate = other.GetDateTimeOffset("Date").Value,
                     EventDescription = other.GetString("Description"),
                     Keyword = other.GetString("Keyword"),
@@ -48,11 +49,12 @@ namespace KorpArhivs.Pages
 
     public class Other
     {
+        public string EventGroup { get; set; }
+        public string Id { get; set; }
         public string EventName { get; set; }
         public System.DateTimeOffset EventDate { get; set; }
         public string EventDescription { get; set; }
         public string Keyword { get; set; }
-        public string EventGroup { get; set; }
 
     }
 }
