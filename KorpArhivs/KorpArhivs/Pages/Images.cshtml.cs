@@ -54,8 +54,6 @@ namespace KorpArhivs.Pages
                     FirstImageUri = await GetFirstImageUri(containerClient, gallery)
                 });
             }
-
-
         }
 
         private async Task<string> GetFirstImageUri(BlobContainerClient containerClient, TableEntity gallery)
