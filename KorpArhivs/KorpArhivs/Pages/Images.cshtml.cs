@@ -1,9 +1,12 @@
 using Azure.Data.Tables;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KorpArhivs.Pages
 {
@@ -14,16 +17,23 @@ namespace KorpArhivs.Pages
         [BindProperty]
         public List<Gallery> Galleries { get; set; }
 
-        public ImagesModel(IConfiguration configuration) 
+        public ImagesModel(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
 
             var tableName = _configuration["StorageTables:Events"];
+            var containerName = _configuration["StorageBlobs:Events"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
+
+            // Create a BlobServiceClient object which will be used to create a container client
+            var blobServiceClient = new BlobServiceClient(connectionString);
+
+            // Create the container and return a container client object
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
             var tableClient = new TableClient(connectionString, tableName);
 
@@ -41,47 +51,35 @@ namespace KorpArhivs.Pages
                     EventDescription = gallery.GetString("Description"),
                     Keyword = gallery.GetString("Keyword"),
                     EventGroup = gallery.GetString("Group"),
+                    FirstImageUri = await GetFirstImageUri(containerClient, gallery)
                 });
             }
 
-            //Events = new List<Event>
-            //{
-            //new Event
-            //{
-            //    EventName = "Pirmais notikums",
-            //    EventDate = new DateTime(2020, 08, 13),
-            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            //    Keyword = "",
-            //    EventGroup = "Bildes"
-            //},
-            //new Event
-            //{
-            //    EventName = "Otrais notikums",
-            //    EventDate = new DateTime(2000, 07, 03),
-            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            //    Keyword = "",
-            //    EventGroup = "Bildes"
-            //},
-            //new Event
-            //{
-            //    EventName = "Tresais notikums",
-            //    EventDate = new DateTime(2018, 10, 20),
-            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            //    Keyword = "",
-            //    EventGroup = "Bildes"
-            //},
-            //new Event
-            //{
-            //    EventName = "Ceturtais notikums",
-            //    EventDate = new DateTime(2001, 02, 28),
-            //    EventDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            //    Keyword = "",
-            //    EventGroup = "Bildes"
-            //}
-
-            //};
 
         }
+
+        private async Task<string> GetFirstImageUri(BlobContainerClient containerClient, TableEntity gallery)
+        {
+            var result = string.Empty;
+
+            // Call the listing operation and return pages of the specified size.
+            var resultSegment = containerClient.GetBlobsAsync(prefix: $"{gallery.GetString("Group")}/{gallery.RowKey}").AsPages();
+
+            // Enumerate the blobs returned for each page.
+            await foreach (Azure.Page<BlobItem> blobPage in resultSegment)
+            {
+                foreach (BlobItem blobItem in blobPage.Values)
+                {
+                    var blobClient = containerClient.GetBlobClient(blobItem.Name);
+                    result = blobClient.Uri.ToString();
+                    break;
+                }
+                break;
+            }
+
+            return result;
+        }
+
     }
 
     public class Gallery
@@ -89,8 +87,9 @@ namespace KorpArhivs.Pages
         public string EventGroup { get; set; }
         public string Id { get; set; }
         public string EventName { get; set; }
-        public System.DateTimeOffset EventDate { get; set; }
+        public DateTimeOffset EventDate { get; set; }
         public string EventDescription { get; set; }
         public string Keyword { get; set; }
+        public string FirstImageUri { get; set; }
     }
 }
