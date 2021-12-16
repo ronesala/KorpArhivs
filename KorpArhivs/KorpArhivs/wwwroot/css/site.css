@@ -70,6 +70,8 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+/* My added styles
+-------------------------------------------------- */
 .logo {
     height: 50px;
 }
@@ -78,3 +80,43 @@ body {
     height: 100px;
     width: 100px;
 }
+
+.btn-dark {
+    color: #ffffff;
+    background-color: #102638;
+    border-color: #0d202e;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(23, 31, 56, 0.075);
+}
+
+    .btn-dark:hover {
+        color: #ffffff;
+        background-color: #102638;
+        border-color: #0d202e;
+    }
+
+    .btn-check:focus + .btn-dark, .btn-dark:focus {
+        color: #ffffff;
+        background-color: #102638;
+        border-color: #0d202e;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(23, 31, 56, 0.075), 0 0 0 0.2rem rgba(59, 88, 111, 0.5);
+    }
+
+    .btn-check:checked + .btn-dark,
+    .btn-check:active + .btn-dark, .btn-dark:active, .btn-dark.active,
+    .show > .btn-dark.dropdown-toggle {
+        color: #ffffff;
+        background-color: #102638;
+        border-color: #0d202e;
+    }
+
+        .btn-check:checked + .btn-dark:focus,
+        .btn-check:active + .btn-dark:focus, .btn-dark:active:focus, .btn-dark.active:focus,
+        .show > .btn-dark.dropdown-toggle:focus {
+            box-shadow: inset 0 3px 5px rgba(23, 31, 56, 0.125), 0 0 0 0.2rem rgba(59, 88, 111, 0.5);
+        }
+
+    .btn-dark:disabled, .btn-dark.disabled {
+        color: #ffffff;
+        background-color: #102638;
+        border-color: #0d202e;
+    }
