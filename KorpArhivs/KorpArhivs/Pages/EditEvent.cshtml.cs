@@ -32,7 +32,7 @@ namespace KorpArhivs.Pages
         public string Id { get; set; }
 
         [BindProperty]
-        public List<string> UploadedFiles { get; set; }
+        public List<UploadedFile> UploadedFiles { get; set; }
 
         public async Task OnGet(string category, string id)
         {
@@ -64,7 +64,7 @@ namespace KorpArhivs.Pages
             // Call the listing operation and return pages of the specified size.
             var resultSegment = containerClient.GetBlobsAsync(prefix: $"{category}/{id}").AsPages();
 
-            UploadedFiles = new List<string>();
+            UploadedFiles = new List<UploadedFile>();
 
             // Enumerate the blobs returned for each page.
             await foreach (Azure.Page<BlobItem> blobPage in resultSegment)
@@ -72,7 +72,9 @@ namespace KorpArhivs.Pages
                 foreach (BlobItem blobItem in blobPage.Values)
                 {
                     var blobClient = containerClient.GetBlobClient(blobItem.Name);
-                    UploadedFiles.Add(blobClient.Uri.ToString());
+                    var file = new UploadedFile();
+                    file.Uri = blobClient.Uri.ToString();
+                    UploadedFiles.Add(file);
                 }
 
             }
@@ -104,19 +106,19 @@ namespace KorpArhivs.Pages
             // Create the container and return a container client object
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-            //foreach (var uploadedFile in Update.Upload)
-            //{
-            //    using var memoryStream = new MemoryStream();
-            //    uploadedFile.CopyTo(memoryStream);
-            //    memoryStream.Position = 0;
+            foreach (var uploadedFile in Update.Upload)
+            {
+                using var memoryStream = new MemoryStream();
+                uploadedFile.CopyTo(memoryStream);
+                memoryStream.Position = 0;
 
-            //    var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
+                var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
 
-            //    // Get a reference to a blob
-            //    BlobClient blobClient = containerClient.GetBlobClient(fileName);
+                // Get a reference to a blob
+                BlobClient blobClient = containerClient.GetBlobClient(fileName);
 
-            //    await blobClient.UploadAsync(memoryStream, true);
-            //}
+                await blobClient.UploadAsync(memoryStream, true);
+            }
 
             return RedirectToPage("/UploadedEvent", new {category = Category, id = Id});
         }
@@ -151,6 +153,12 @@ namespace KorpArhivs.Pages
             [Required]
             [Display(Name = "Pievienojiet failu:")]
             public IFormFile[] Upload { get; set; }
+        }
+
+        public class UploadedFile 
+        {
+            public string Uri { get; set; }
+            public bool IsMarkedForDeletion { get; set; }
         }
     }
 }

@@ -37,7 +37,9 @@ namespace KorpArhivs
 
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizePage("/Index");
+                options.Conventions.AuthorizeFolder("/");
+                options.Conventions.AuthorizeFolder("/Identity/Account/Manage");
+                options.Conventions.AllowAnonymousToPage("/index");
             });
         }
 

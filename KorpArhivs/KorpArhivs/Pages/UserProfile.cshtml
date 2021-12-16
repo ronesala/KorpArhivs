@@ -1,0 +1,29 @@
+﻿@page
+@model KorpArhivs.Pages.UserProfileModel
+@{
+}
+<div class="col-12 pt-4">
+    <h2>Tavs profils <a href="#" class="link-dark"><i class="far fa-edit"></i></a></h2>
+    <form>
+        <div class="col-5 mt-3">
+            <div class="mb-3">
+                <label for="Name" class="form-label">Vārds</label>
+                <input type="text" class="form-control" id="Name" aria-describedby="Name">
+            </div>
+            <div class="mb-3">
+                <label for="Surname" class="form-label">Uzvārds</label>
+                <input type="text" class="form-control" id="Surname">
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">E-pasts</label>
+                <input type="text" class="form-control" id="Email">
+            </div>
+@*            <div class="d-flex justify-content-end">
+                <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
+                <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabā</button>
+            </div>*@
+        </div>
+    </form>
+
+    <h5 class="pt-3">Mainīt paroli <a href="#" class="link-dark"><i class="far fa-edit"></i></a></h5>
+</div>
