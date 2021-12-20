@@ -2,28 +2,30 @@
 @model KorpArhivs.Pages.UserProfileModel
 @{
 }
-<div class="col-12 pt-4">
+<div class="col-7 pt-4">
     <h2>Tavs profils <a href="#" class="link-dark"><i class="far fa-edit"></i></a></h2>
-    <form>
         <div class="col-5 mt-3">
             <div class="mb-3">
-                <label for="Name" class="form-label">Vārds</label>
-                <input type="text" class="form-control" id="Name" aria-describedby="Name">
+                <h4>Vārds</h4>
+                <p class="h5">*Šis ir tavs vārds*</p>
             </div>
             <div class="mb-3">
-                <label for="Surname" class="form-label">Uzvārds</label>
-                <input type="text" class="form-control" id="Surname">
+                <h4>Uzvārds</h4>
+                <p>*Šis ir tavs uzvārds*</p>
             </div>
             <div class="mb-3">
-                <label for="Email" class="form-label">E-pasts</label>
-                <input type="text" class="form-control" id="Email">
+                <h4 class="h5">E-pasts</h4>
+                <p>*Šis ir tavs e-pasts*</p>
             </div>
-@*            <div class="d-flex justify-content-end">
+            <div class="mb-3">
+                <h4 class="h5">Telefona nummurs</h4>
+                <p>*Šis ir tavs telefona numurs*</p>
+            </div>
+            @*  <div class="d-flex justify-content-end">
                 <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
                 <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabā</button>
-            </div>*@
+                </div>*@
         </div>
-    </form>
-
-    <h5 class="pt-3">Mainīt paroli <a href="#" class="link-dark"><i class="far fa-edit"></i></a></h5>
 </div>
+<div class="col-5"></div>
+<h4 class="pt-3">Mainīt paroli <a href="/Identity/Account/Manage/ChangePassword" class="link-dark"><i class="far fa-edit"></i></a></h4>
