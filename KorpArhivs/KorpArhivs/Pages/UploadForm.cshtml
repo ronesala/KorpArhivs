@@ -1,6 +1,7 @@
 ﻿@page
 @model KorpArhivs.Pages.UploadFormModel
 @{
+    ViewData["Title"] = "Pievienot notikumu";
 }
 
 
@@ -43,7 +44,7 @@
             </div>
             <div class="mt-2 mb-3">
                 <label asp-for="Input.EventDescription" class="form-label"></label>
-                <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="3" aria-label="EventDescription"></textarea>
+                <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="8" aria-label="EventDescription"></textarea>
             </div>
             <div class="col-12 mt-2 mb-3">
                 <label asp-for="Input.Upload" class="form-label"></label>
