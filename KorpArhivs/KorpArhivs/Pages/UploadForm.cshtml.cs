@@ -25,6 +25,7 @@ namespace KorpArhivs.Pages
             _configuration = configuration;
         }
 
+        //public string Id { get; set; }
 
         public void OnGet()
         {
@@ -33,6 +34,8 @@ namespace KorpArhivs.Pages
 
         public async Task OnPost()
         {
+            //Id= id;
+
             var tableName = _configuration["StorageTables:Events"];
             var containerName = _configuration["StorageBlobs:Events"];
             var connectionString = _configuration.GetConnectionString("TableStorage");
@@ -74,6 +77,8 @@ namespace KorpArhivs.Pages
 
                 await blobClient.UploadAsync(memoryStream, true);
             }
+
+            //return RedirectToPage("/UploadedEvent", new { Input.Category, guid });
         }
 
         public class UploadModel
