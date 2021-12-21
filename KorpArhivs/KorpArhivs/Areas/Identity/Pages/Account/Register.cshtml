@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
 @model KorpArhivs.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -7,6 +9,30 @@
 <div class="row align-items-center pt-3">
     <div class="row mx-0 align-items-center">
         <div class="col-md-6 border-end-md p-4 p-sm-5">
+            @*@{
+            var providers = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (!providers.Any())
+            {
+                <div>
+                    <p>
+                        We couldn't find any external provider
+                    </p>
+                </div>
+            }
+            else
+            {
+                <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (var provider in providers)
+                            {
+                                <input type="submit" class="btn btn-info" value="@provider.Name" name="provider" />
+                            }
+                        </p>
+                    </div>
+                </form>
+            }
+        }*@
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-google fs-lg me-1"></i>*@Reģistrēties ar Google</a>
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-facebook-f fs-lg me-3"></i>*@Reģistrēties ar Facebook</a>
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="bi bi-microsoft fs-lg me-1"></i>*@Reģistrēties ar Microsoft</a>

@@ -3,36 +3,42 @@
 @inject UserManager<IdentityUser> UserManager
 
 <div class="">
-<ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <li> 
-            <a href="/UploadForm" class="btn btn-dark">
-                Pievienot notikumu
-                <span class="icon icon-xs ml-2">
-                    <i class="fas fa-external-link-alt"></i>
-                </span>
-            </a>
-        </li>
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+@*            <li class="nav-item">
+                <a href="#" class="btn btn-dark">
+                    Apstiprināt lietotājus
+                </a>
+            </li>*@
 
-        <li class="nav-item">
-            <a class="nav-link text-light" href="/Identity/Account/Manage/Index"><i class="fas fa-user-alt fa-lg"></i></a>
-        </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-light">Iziet</button>
-            </form>
-        </li>
-    }
-    else
-    {
-        <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
-        </li>
-        <li class="nav-item pe-3">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
-        </li>
-    }
-</ul>
+            <li class="nav-item">
+                <a href="/UploadForm" class="btn btn-dark">
+                    Pievienot notikumu
+                    <span class="icon icon-xs ml-2">
+                        <i class="fas fa-external-link-alt"></i>
+                    </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-light" href="/Identity/Account/Manage/Index"><i class="fas fa-user-alt fa-lg"></i></a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-light">Iziet</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
+            </li>
+            <li class="nav-item pe-3">
+                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
+            </li>
+        }
+    </ul>
 </div>
 
