@@ -39,14 +39,14 @@
                     @if (Model.Category == "Bildes")
                     {
                         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4">
-                            @foreach (var uploadedUri in Model.UploadedFiles)
+                            @for (var i=0; i < Model.UploadedFiles.Count; i++)
                             {
                                 <div class="col mt-3">
-                                    <input class="" type="hidden" asp-for="@uploadedUri.Uri">
+                                    <input class="" type="hidden" asp-for="@Model.UploadedFiles[i].Uri">
                                     <div class="d-flex flex-column align-items-center">
-                                        <img src="@uploadedUri.Uri" class="img-fluid pb-2" alt="image">
+                                        <img src="@Model.UploadedFiles[i].Uri" class="img-fluid pb-2" alt="image">
                                         <div>
-                                            <input class="form-check-input" type="checkbox" asp-for="@uploadedUri.IsMarkedForDeletion">
+                                            <input class="form-check-input" asp-for="@Model.UploadedFiles[i].IsMarkedForDeletion">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Atzīmēt dzēšanai
                                             </label>

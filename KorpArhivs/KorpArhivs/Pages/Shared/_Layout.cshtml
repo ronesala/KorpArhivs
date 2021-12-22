@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿@using KorpArhivs.Areas.Identity
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,12 +43,13 @@
                                 </li>
                             }
                         </ul>
+                        <partial name="_LoginPartial" />
                     </div>
-                    <div class="">
+@*                    <div class="">
                         <div class="collapse navbar-collapse order-lg-2 justify-content-end" id="navbarNav">
                             <partial name="_LoginPartial" />
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </nav>
         </div>

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KorpArhivs.Pages
@@ -80,7 +81,7 @@ namespace KorpArhivs.Pages
             }
         }
 
-        public async Task <IActionResult> OnPost()
+        public async Task<IActionResult> OnPost()
         {
             var tableName = _configuration["StorageTables:Events"];
             var containerName = _configuration["StorageBlobs:Events"];
@@ -106,21 +107,37 @@ namespace KorpArhivs.Pages
             // Create the container and return a container client object
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-            foreach (var uploadedFile in Update.Upload)
+            if (Update.Upload != null)
             {
-                using var memoryStream = new MemoryStream();
-                uploadedFile.CopyTo(memoryStream);
-                memoryStream.Position = 0;
+                foreach (var uploadedFile in Update.Upload)
+                {
+                    using var memoryStream = new MemoryStream();
+                    uploadedFile.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
 
-                var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
+                    var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
 
-                // Get a reference to a blob
-                BlobClient blobClient = containerClient.GetBlobClient(fileName);
+                    // Get a reference to a blob
+                    BlobClient blobClient = containerClient.GetBlobClient(fileName);
 
-                await blobClient.UploadAsync(memoryStream, true);
+                    await blobClient.UploadAsync(memoryStream, true);
+                }
             }
 
-            return RedirectToPage("/UploadedEvent", new {category = Category, id = Id});
+
+            var filesToDelete = UploadedFiles.Where(x => x.IsMarkedForDeletion);
+
+            if (filesToDelete.Any())
+            {
+                foreach (var file in filesToDelete)
+                {
+                    BlobClient blobClient = new BlobClient(new Uri(file.Uri));
+                    // add conection string
+                    await blobClient.DeleteAsync();
+                }
+            }
+
+            return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
         }
 
         public class EditingModel
@@ -155,7 +172,7 @@ namespace KorpArhivs.Pages
             public IFormFile[] Upload { get; set; }
         }
 
-        public class UploadedFile 
+        public class UploadedFile
         {
             public string Uri { get; set; }
             public bool IsMarkedForDeletion { get; set; }
