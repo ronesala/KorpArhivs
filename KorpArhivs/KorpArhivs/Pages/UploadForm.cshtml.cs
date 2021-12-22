@@ -32,7 +32,7 @@ namespace KorpArhivs.Pages
 
         }
 
-        public async Task OnPost()
+        public async Task<IActionResult> OnPost()
         {
             //Id= id;
 
@@ -78,7 +78,7 @@ namespace KorpArhivs.Pages
                 await blobClient.UploadAsync(memoryStream, true);
             }
 
-            //return RedirectToPage("/UploadedEvent", new { Input.Category, guid });
+            return RedirectToPage("/UploadedEvent", new { category = Category, id = guid });
         }
 
         public class UploadModel
