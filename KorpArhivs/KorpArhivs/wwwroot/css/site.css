@@ -81,6 +81,18 @@ body {
     width: 100px;
 }
 
+/* Navbar */
+/*.navbar-collapse.collapsing, .navbar-collapse.show {
+    height: auto !important;
+    margin-top: 77px;
+}
+
+.navbar-collapse {
+    align-items: end;
+    width: 50%;
+}*/
+
+/* Btn */
 .btn-dark {
     color: #ffffff;
     background-color: #102638;

@@ -85,8 +85,16 @@ else
     <h1 class="text-center pt-5">Lai apskatītu saturu, jums ir jāienāk savā profilā.</h1>
 
     <div class="text-center">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>
+@*        <a class="nav-link text-dark btn btn-secondary mt-3" asp-area="Identity" asp-page="/Account/Login">Ienākt</a>
+        <a class="nav-link text-dark " asp-area="Identity" asp-page="/Account/Register">Reģistrēties</a>*@
+
+        <a asp-page="/Account/Login" class="btn btn-secondary mt-3 pe-3">
+            Ienākt
+        </a>
+        <a asp-page="/Account/Register" class="btn btn-secondary mt-3">
+            Reģistrēties
+        </a>
+
     </div>
 }
 
