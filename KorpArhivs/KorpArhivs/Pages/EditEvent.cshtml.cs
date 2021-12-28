@@ -75,13 +75,14 @@ namespace KorpArhivs.Pages
                     var blobClient = containerClient.GetBlobClient(blobItem.Name);
                     var file = new UploadedFile();
                     file.Uri = blobClient.Uri.ToString();
+                    file.BlobName = blobItem.Name;
                     UploadedFiles.Add(file);
                 }
 
             }
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostUpdate()
         {
             var tableName = _configuration["StorageTables:Events"];
             var containerName = _configuration["StorageBlobs:Events"];
@@ -131,13 +132,37 @@ namespace KorpArhivs.Pages
             {
                 foreach (var file in filesToDelete)
                 {
-                    BlobClient blobClient = new BlobClient(new Uri(file.Uri));
-                    // add conection string
+                    BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
                     await blobClient.DeleteAsync();
                 }
             }
 
             return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
+        }
+
+        public async Task<IActionResult> OnPostDelete()
+        {
+            var tableName = _configuration["StorageTables:Events"];
+            var containerName = _configuration["StorageBlobs:Events"];
+            var connectionString = _configuration.GetConnectionString("TableStorage");
+
+            var tableClient = new TableClient(connectionString, tableName);
+
+            await tableClient.DeleteEntityAsync(Category, Id);
+
+            // Create a BlobServiceClient object which will be used to create a container client
+            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+
+            // Create the container and return a container client object
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            foreach (var file in UploadedFiles)
+            {
+                BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
+                await blobClient.DeleteAsync();
+            }
+
+            return RedirectToPage("/Index");
         }
 
         public class EditingModel
@@ -176,6 +201,7 @@ namespace KorpArhivs.Pages
         {
             public string Uri { get; set; }
             public bool IsMarkedForDeletion { get; set; }
+            public string BlobName { get; set; }
         }
     }
 }

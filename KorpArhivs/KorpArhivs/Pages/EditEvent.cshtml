@@ -39,10 +39,11 @@
                     @if (Model.Category == "Bildes")
                     {
                         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4">
-                            @for (var i=0; i < Model.UploadedFiles.Count; i++)
+                            @for (var i = 0; i < Model.UploadedFiles.Count; i++)
                             {
                                 <div class="col mt-3">
                                     <input class="" type="hidden" asp-for="@Model.UploadedFiles[i].Uri">
+                                    <input class="" type="hidden" asp-for="@Model.UploadedFiles[i].BlobName">
                                     <div class="d-flex flex-column align-items-center">
                                         <img src="@Model.UploadedFiles[i].Uri" class="img-fluid pb-2" alt="image">
                                         <div>
@@ -76,10 +77,16 @@
                         <input asp-for="Update.Upload" class="form-control" type="file" id="formFileMultiple" multiple>
                     </div>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
-                    <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
+                <div class="d-flex justify-content-between">
+                    <div class="">
+                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger d-none d-md-inline">Dzēst visu notikumu</button>
+                    </div>
+                    <div class="">
+                        <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
+                        <button type="submit" asp-page-handler="Update" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
+                    </div>
                 </div>
+
             </div>
         </form>
     </div>
