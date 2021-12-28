@@ -78,15 +78,15 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="">
+@*                    <div class="">
                         <button type="submit" asp-page-handler="Delete" class="btn btn-danger d-none d-md-inline">Dzēst visu notikumu</button>
-                    </div>
+                    </div>*@
+                    <a href="/DeleteEventConfirmation/@Model.Category/@Model.Id" class="btn btn-danger d-none d-md-inline">Dzēst visu notikumu</a>
                     <div class="">
                         <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
                         <button type="submit" asp-page-handler="Update" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
                     </div>
                 </div>
-
             </div>
         </form>
     </div>
