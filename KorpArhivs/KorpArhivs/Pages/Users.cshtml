@@ -15,52 +15,22 @@
                 <th scope="col">Vārds</th>
                 <th scope="col">Uzvārds</th>
                 <th scope="col">Epasts</th>
+                <th scope="col">Talrunis</th>
                 <th scope="col">Apstiprināts</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            @foreach (var user in Model.Users)
+           {
+               <tr>
                 <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <th scope="row"><input class="form-check-input" asp-for="@user.IsConfirmed" type="checkbox"></th>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>Thornton</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-            </tr>
-            <tr>
-                <th scope="row">4</th>
-                <td>Larry the Bird</td>
-                <td>Thornton</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-            </tr>
-            <tr>
-                <th scope="row">5</th>
-                <td>Larry the Bird</td>
-                <td>Thornton</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-            </tr>
-            <tr>
-                <th scope="row">6</th>
-                <td>Larry the Bird</td>
-                <td>Thornton</td>
-                <td>test@test.lv</td>
-                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-            </tr>
+           } 
         </tbody>
     </table>
 </div>
