@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using KorpArhivs.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 
@@ -6,20 +7,31 @@ namespace KorpArhivs.Pages
 {
     public class UsersModel : PageModel
     {
+        private ApplicationDbContext _dbContext;
+
         [BindProperty]
         public List<AppUser> Users { get; set; }
+
+        public UsersModel(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public void OnGet()
         {
             Users = new List<AppUser>();
-            Users.Add(new AppUser
+            var users = _dbContext.Users;
+            foreach (var user in users)
             {
-                Name = "Kārlis",
-                Surname = "Bērziņš",
-                Email = "test@test.com",
-                PhoneNumber = "26359017",
-                IsConfirmed = true,
-            });
+                Users.Add(new AppUser
+                {
+                    Name = user.FirstName,
+                    Surname = user.LastName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    IsConfirmed = user.IsReviewed,
+                });
+            }
         }
 
         public class AppUser

@@ -31,7 +31,8 @@ namespace KorpArhivs
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication().AddGoogle(googleOptions =>
@@ -40,10 +41,29 @@ namespace KorpArhivs
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsInRole", policy =>
+                    policy.RequireRole("User", "Editor", "Administrator"));
+                options.AddPolicy("IsUser", policy =>
+                    policy.RequireRole("User"));
+                options.AddPolicy("IsEditor", policy =>
+                    policy.RequireRole("Editor"));
+                options.AddPolicy("IsAdministrator", policy =>
+                    policy.RequireRole("Administrator"));
+            });
+
             services.AddRazorPages(options =>
             {
-                options.Conventions.AuthorizeFolder("/");
+                options.Conventions.AuthorizeFolder("/", "IsInRole");
+
+                options.Conventions.AuthorizePage("/Users", "IsAdministrator");
+
+                options.Conventions.AuthorizePage("/UploadForm", "IsAdministrator");
+                options.Conventions.AuthorizePage("/UploadForm", "IsEditor");
+
                 options.Conventions.AuthorizeFolder("/Identity/Account/Manage");
+
                 options.Conventions.AllowAnonymousToPage("/index");
             });
         }
