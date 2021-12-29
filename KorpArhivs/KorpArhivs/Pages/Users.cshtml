@@ -8,29 +8,35 @@
         <h2>Lietotāji:</h2>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Vārds</th>
-                <th scope="col">Uzvārds</th>
-                <th scope="col">Epasts</th>
-                <th scope="col">Talrunis</th>
-                <th scope="col">Apstiprināts</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-           {
-               <tr>
-                <th scope="row">1</th>
-                <td>@user.Name</td>
-                <td>@user.Surname</td>
-                <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
-                <th scope="row"><input class="form-check-input" asp-for="@user.IsConfirmed" type="checkbox"></th>
-            </tr>
-           } 
-        </tbody>
-    </table>
+    <form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Vārds</th>
+                    <th scope="col">Uzvārds</th>
+                    <th scope="col">Epasts</th>
+                    <th scope="col">Talrunis</th>
+                    <th scope="col">Apstiprināts</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>@user.Name</td>
+                        <td>@user.Surname</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                        <th scope="row"><input class="form-check-input" asp-for="@user.IsConfirmed" type="checkbox"></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atpakaļ</a>
+            <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
+        </div>
+    </form>
 </div>

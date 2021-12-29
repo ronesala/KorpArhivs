@@ -60,11 +60,21 @@
                     else
                     {
                         <div class="border-top">
-                            @foreach (var uploadedUri in Model.UploadedFiles)
+                            @for (var i = 0; i < Model.UploadedFiles.Count; i++)
                             {
                                 <div class="col mt-3">
-                                    <i class="fas fa-file me-2"></i>
-                                    <a href="@uploadedUri" class="link-dark" download>@uploadedUri.Uri.Split('/').Last()</a>
+                                    <input class="" type="hidden" asp-for="@Model.UploadedFiles[i].Uri">
+                                    <input class="" type="hidden" asp-for="@Model.UploadedFiles[i].BlobName">
+                                    <div class="">
+                                        <i class="fas fa-file me-2"></i>
+                                        <a href="@Model.UploadedFiles[i].Uri" class="link-dark">@Model.UploadedFiles[i].Uri.Split('/').Last()</a>
+                                        <div class="mt-1">
+                                            <input class="form-check-input" asp-for="@Model.UploadedFiles[i].IsMarkedForDeletion">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Atzīmēt dzēšanai
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -78,13 +88,10 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-@*                    <div class="">
-                        <button type="submit" asp-page-handler="Delete" class="btn btn-danger d-none d-md-inline">Dzēst visu notikumu</button>
-                    </div>*@
                     <a href="/DeleteEventConfirmation/@Model.Category/@Model.Id" class="btn btn-danger d-none d-md-inline">Dzēst visu notikumu</a>
                     <div class="">
                         <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atcelt</a>
-                        <button type="submit" asp-page-handler="Update" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
+                        <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
                     </div>
                 </div>
             </div>
