@@ -60,7 +60,13 @@ namespace KorpArhivs
                 options.Conventions.AuthorizePage("/Users", "IsAdministrator");
 
                 options.Conventions.AuthorizePage("/UploadForm", "IsAdministrator");
-                options.Conventions.AuthorizePage("/UploadForm", "IsEditor");
+                //options.Conventions.AuthorizePage("/UploadForm", "IsEditor");
+
+                options.Conventions.AuthorizePage("/EditEvent", "IsAdministrator");
+                //options.Conventions.AuthorizePage("/EditEvent", "IsEditor");
+
+                options.Conventions.AuthorizePage("/DeleteEventConfirmation", "IsAdministrator");
+                //options.Conventions.AuthorizePage("/DeleteEventConfirmation", "IsEditor");
 
                 options.Conventions.AuthorizeFolder("/Identity/Account/Manage");
 

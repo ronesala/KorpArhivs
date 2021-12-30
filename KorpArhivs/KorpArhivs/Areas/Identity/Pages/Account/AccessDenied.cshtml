@@ -1,10 +1,15 @@
 ﻿@page
+@using KorpArhivs.Areas.Identity.Pages.Account
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Access denied";
+    ViewData["Title"] = "Piekļuve liegta";
 }
-
-<header>
+<div class="mt-2">
     <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+    <h5>Tā iemesli varētu būt: </h5>
+</div>
+<ul>
+    <li>Jūsu profilam nav tiesības piekļūt šai lapai.</li>
+    <li>Administrators vel nav apstiprinājis Jūsu profilu.</li>
+</ul>
+
