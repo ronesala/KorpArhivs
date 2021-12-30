@@ -1,7 +1,10 @@
 ﻿using KorpArhivs.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace KorpArhivs.Pages
 {
@@ -11,6 +14,7 @@ namespace KorpArhivs.Pages
 
         [BindProperty]
         public List<AppUser> Users { get; set; }
+        public List<SelectListItem> Roles { get; set; }
 
         public UsersModel(ApplicationDbContext dbContext)
         {
@@ -23,25 +27,66 @@ namespace KorpArhivs.Pages
             var users = _dbContext.Users;
             foreach (var user in users)
             {
+                var userRole = _dbContext.UserRoles.FirstOrDefault(x => x.UserId == user.Id);
                 Users.Add(new AppUser
                 {
+                    Id = user.Id,
                     Name = user.FirstName,
                     Surname = user.LastName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     IsConfirmed = user.IsReviewed,
+                    Role = userRole?.RoleId
+
+                }); 
+            }
+
+            Roles = new List<SelectListItem>();
+            Roles.Add(new SelectListItem
+            {
+                Text = "Loma nav piešķirta"
+            });
+            foreach (var role in _dbContext.Roles)
+            {
+                Roles.Add(new SelectListItem
+                {
+                    Value = role.Id,
+                    Text = role.Name
                 });
             }
         }
 
-        public class AppUser
+        public void OnPost()
         {
+            foreach (var user in Users)
+            {
+                var userRole = _dbContext.UserRoles.FirstOrDefault(x => x.UserId == user.Id);
+                if (userRole != null)
+                {
+                    userRole.RoleId = user.Role;
+                }
+                else
+                {
+                    //To do: add user role change
+                    _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                    {
+                        RoleId = user.Role,
+                        UserId = user.Id
+                    });
+                }
+            }
+            _dbContext.SaveChanges();
+        }
+
+        public class AppUser  
+        {
+            public string Id { get; set; }
             public string Name { get; set; }
             public string Surname { get; set; }
             public string Email { get; set; }
             public string PhoneNumber { get; set; }
             public bool IsConfirmed { get; set; }
-
+            public string Role { get; set; }
         }
     }
 }
