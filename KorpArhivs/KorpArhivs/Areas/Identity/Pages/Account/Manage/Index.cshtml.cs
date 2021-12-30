@@ -22,6 +22,8 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+        [BindProperty]
+        [Display(Name = "E-pasts")]
         public string Username { get; set; }
 
         [TempData]
@@ -32,8 +34,15 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "Vārds")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Uzvārds")]
+            public string LastName { get; set; }
+
+
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Tālrunis")]
             public string PhoneNumber { get; set; }
         }
 
@@ -55,7 +64,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nevar parādīt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -67,7 +76,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Nevar parādīt lietotāju ar ID '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)
@@ -82,13 +91,13 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
+                    StatusMessage = "Negaidīta kļūda pievienojot tālruni.";
                     return RedirectToPage();
                 }
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Jūsu profils ir atjaunots";
             return RedirectToPage();
         }
     }

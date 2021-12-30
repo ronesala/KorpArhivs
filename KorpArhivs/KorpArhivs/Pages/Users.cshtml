@@ -3,13 +3,13 @@
 @{
 }
 
-<div class="">
-    <div class="mt-4 pb-1">
+<div class="mt-4">
+    <div class="pb-1">
         <h2>Lietotāji:</h2>
     </div>
 
     <form>
-        <table class="table table-striped">
+        <table class="table table-striped table-responsive">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -24,17 +24,24 @@
                 @foreach (var user in Model.Users)
                 {
                     <tr>
-                        <th scope="row">1</th>
-                        <td>@user.Name</td>
-                        <td>@user.Surname</td>
-                        <td>@user.Email</td>
-                        <td>@user.PhoneNumber</td>
-                        <th scope="row"><input class="form-check-input" asp-for="@user.IsConfirmed" type="checkbox"></th>
+                        <th scope="row" class="align-middle">1</th>
+                        <td class="align-middle">@user.Name</td>
+                        <td class="align-middle">@user.Surname</td>
+                        <td class="align-middle">@user.Email</td>
+                        <td class="align-middle">@user.PhoneNumber</td>
+                        <td>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option selected>Lietotāja tiesības</option>
+                                <option value="1">Lietotājs</option>
+                                <option value="2">Rediģētājs</option>
+                                <option value="3">Administrators</option>
+                            </select>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-        <div class="d-flex justify-content-end">
+        <div class="d-flex justify-content-end mb-3">
             <a asp-page="/Index" class="btn btn-outline-primary btn-md d-none d-md-inline mr-md-3">Atpakaļ</a>
             <button type="submit" class="btn btn-secondary d-none d-md-inline">Saglabāt</button>
         </div>

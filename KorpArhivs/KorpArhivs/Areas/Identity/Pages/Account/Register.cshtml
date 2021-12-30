@@ -13,8 +13,8 @@
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-google fs-lg me-1"></i>*@Reģistrēties ar Google</a>
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-facebook-f fs-lg me-3"></i>*@Reģistrēties ar Facebook</a>
             <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="bi bi-microsoft fs-lg me-1"></i>*@Reģistrēties ar Microsoft</a>
-            <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-linkedin-in fs-lg me-1"></i>*@Reģistrēties ar LinkedIn</a>
-            <div class="mt-sm-4 pt-md-3">Jau esi reģistrējies? <a href="#signin-modal" data-bs-toggle="modal" data-bs-dismiss="modal">Ienākt</a></div>
+            <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-linkedin-in fs-lg me-1"></i>*@Reģistrēties ar Twitter</a>
+            <div class="mt-sm-4 pt-md-3">Jau esi reģistrējies? <a href="/Identity/Account/Login">Ienākt</a></div>
         </div>
         <div class="col-md-6 px-4 pt-3 pb-4 px-sm-5 pb-sm-5 pt-md-5">
 
@@ -45,9 +45,6 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                     <div class="password-toggle">
                         <input asp-for="Input.Password" class="form-control" placeholder="Parole" />
-                        @*                        <label class="password-toggle-btn" aria-label="Parādīt/paslēpt paroli">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                            </label>*@
                     </div>
                 </div>
                 <div class="mb-4">
@@ -55,14 +52,11 @@
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     <div class="password-toggle">
                         <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Parole atkārtoti" />
-                        @*                        <label class="password-toggle-btn" aria-label="Parādīt/paslēpt paroli">
-                            <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                            </label>*@
                     </div>
                 </div>
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" id="agree-to-terms" required="">
-                    <label class="form-check-label" for="agree-to-terms">Es piekrītu <a href="#">lietošanas noteikumiem</a> un <a href="#">privātuma noteikumiem</a></label>
+                    <label class="form-check-label" for="agree-to-terms">Es piekrītu <a href="#">privātuma noteikumiem</a></label>
                 </div>
                 <button class="btn btn-secondary btn-lg w-100 mb-5" type="submit">Reģistrēties</button>
             </form>
