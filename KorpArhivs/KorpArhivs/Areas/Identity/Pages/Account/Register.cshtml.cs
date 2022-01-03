@@ -55,18 +55,18 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
 
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-pasts")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Parolei jābūt vismaz 6 simbolu garai.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Parole")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Parole atkārtoti")]
+            [Compare("Parole", ErrorMessage = "Ievadītās paroles nesakrīt.")]
             public string ConfirmPassword { get; set; }
         }
 

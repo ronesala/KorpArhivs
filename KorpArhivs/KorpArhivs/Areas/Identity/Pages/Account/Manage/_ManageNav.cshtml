@@ -5,14 +5,27 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profils</a></li>
-    @*<li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>*@
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Parole</a></li>
-    @if (hasExternalLogins)
-        {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Sociālo tīklu profili</a></li>
-        }
-@*    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-*@    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Dzēst profilu</a></li>
-</ul>
+
+<aside class="mb-5 container">
+    <!-- Account nav-->
+    <a class="btn btn-outline-dark d-block d-md-none w-100 mb-3 collapsed" href="#account-nav" data-bs-toggle="collapse" aria-expanded="false"><i class="fi-align-justify me-2"></i>Menu</a>
+    <div class="d-md-block mt-3 collapse row" id="account-nav" style="">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+                <a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profils</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Parole</a>
+            </li>
+            <li class="nav-item">
+                @if (hasExternalLogins)
+                {
+                    <a class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" id="external-logins" asp-page="./ExternalLogins">Sociālo tīklu profili</a>
+                }
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Dzēst profilu</a>
+            </li>
+        </ul>
+    </div>
+</aside>
