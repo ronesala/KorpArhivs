@@ -32,6 +32,8 @@ namespace KorpArhivs
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                 // localize identity error messages
+                .AddErrorDescriber<LocalizedIdentityErrorDescriber>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 

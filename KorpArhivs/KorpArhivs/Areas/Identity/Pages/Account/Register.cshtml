@@ -42,21 +42,22 @@
                 </div>
                 <div class="mb-4">
                     <label asp-for="Input.Password" class="form-label">Parole</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                     <div class="password-toggle">
                         <input asp-for="Input.Password" class="form-control" placeholder="Parole" />
                     </div>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="mb-4">
                     <label asp-for="Input.ConfirmPassword" class="form-label">Parole atkārtoti</label>
-                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     <div class="password-toggle">
                         <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Parole atkārtoti" />
                     </div>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" id="agree-to-terms" required>
                     <label class="form-check-label" for="agree-to-terms">Es piekrītu <a href="#">privātuma noteikumiem</a></label>
+                    <span asp-validation-for="Input.HasAccepted" class="text-danger"></span>
                 </div>
                 <button class="btn btn-secondary btn-lg w-100 mb-5" type="submit">Reģistrēties</button>
             </form>

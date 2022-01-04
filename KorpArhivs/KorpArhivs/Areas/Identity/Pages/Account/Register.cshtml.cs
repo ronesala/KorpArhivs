@@ -45,15 +45,15 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Vārda lauks ir obligāti jāaizpilda")]
             [Display(Name = "Vārds")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Uzvārda lauks ir obligāti jāaizpilda")]
             [Display(Name = "Uzvārds")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "E-pasta lauks ir obligāti jāaizpilda")]
             [EmailAddress]
             [Display(Name = "E-pasts")]
             public string Email { get; set; }
@@ -66,8 +66,11 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Parole atkārtoti")]
-            [Compare("Parole", ErrorMessage = "Ievadītās paroles nesakrīt.")]
+            [Compare("Password", ErrorMessage = "Ievadītās paroles nesakrīt.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(ErrorMessage = "Ir jāpiekrīt lietošanas nosacījumiem")]
+            public bool HasAccepted { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
