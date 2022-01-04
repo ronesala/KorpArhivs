@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using KorpArhivs.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,13 +12,16 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
+        private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IndexModel(
+            ApplicationDbContext dbContext,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
+            _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -55,6 +59,8 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -83,6 +89,14 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+
+            if (user.FirstName != Input.FirstName || user.LastName != Input.LastName)
+            {
+                var dbUser = _dbContext.Users.FirstOrDefault(x => x.Id == user.Id);
+                dbUser.FirstName = Input.FirstName;
+                dbUser.LastName = Input.LastName;
+                _dbContext.SaveChanges();
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
