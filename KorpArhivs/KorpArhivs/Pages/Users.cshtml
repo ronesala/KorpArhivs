@@ -3,6 +3,15 @@
 @{
 }
 
+@if (!String.IsNullOrEmpty(@Model.StatusMessage))
+{
+    var statusMessageClass = @Model.StatusMessage.StartsWith("Kļūda") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @Model.StatusMessage
+    </div>
+}
+
 <div class="mt-4">
     <div class="pb-1">
         <h2>Lietotāji:</h2>

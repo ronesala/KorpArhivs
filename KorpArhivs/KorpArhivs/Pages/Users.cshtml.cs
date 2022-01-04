@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KorpArhivs.Pages
 {
@@ -15,6 +16,9 @@ namespace KorpArhivs.Pages
         [BindProperty]
         public List<AppUser> Users { get; set; }
         public List<SelectListItem> Roles { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public UsersModel(ApplicationDbContext dbContext)
         {
@@ -38,7 +42,7 @@ namespace KorpArhivs.Pages
                     IsConfirmed = user.IsReviewed,
                     Role = userRole?.RoleId
 
-                }); 
+                });
             }
 
             Roles = new List<SelectListItem>();
@@ -56,29 +60,61 @@ namespace KorpArhivs.Pages
             }
         }
 
-        public void OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            foreach (var user in Users)
+            try
             {
-                var userRole = _dbContext.UserRoles.FirstOrDefault(x => x.UserId == user.Id);
-                if (userRole != null)
+                foreach (var user in Users)
                 {
-                    userRole.RoleId = user.Role;
-                }
-                else
-                {
-                    //To do: add user role change
-                    _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                    var userRole = _dbContext.UserRoles.FirstOrDefault(x => x.UserId == user.Id);
+                    if (userRole != null)
                     {
-                        RoleId = user.Role,
-                        UserId = user.Id
-                    });
+                        if (user.Role == "Loma nav piešķirta")
+                        {
+                            //ja loma ir piešķirta un tagad tā ir "Loma nav piešķirta", tad lomu dzēšam
+                            _dbContext.UserRoles.Remove(userRole);
+                            await _dbContext.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            if (userRole.RoleId != user.Role)
+                            {
+                                //ja loma ir piešķirta un tagad tā ir cita loma, tad to atjaunojam
+                                _dbContext.UserRoles.Remove(userRole);
+                                await _dbContext.SaveChangesAsync();
+                                _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                                {
+                                    RoleId = user.Role,
+                                    UserId = user.Id
+                                });
+                                await _dbContext.SaveChangesAsync();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (user.Role != "Loma nav piešķirta")
+                        {
+                            _dbContext.UserRoles.Add(new IdentityUserRole<string>
+                            {
+                                RoleId = user.Role,
+                                UserId = user.Id
+                            });
+                            await _dbContext.SaveChangesAsync();
+                        }
+                    }
                 }
+                StatusMessage = "Izmaiņas veiksmīgi saglabātas";
             }
-            _dbContext.SaveChanges();
+            catch
+            {
+                StatusMessage = "Kļūda saglabājot datus";
+            }
+
+            return RedirectToPage();
         }
 
-        public class AppUser  
+        public class AppUser
         {
             public string Id { get; set; }
             public string Name { get; set; }
