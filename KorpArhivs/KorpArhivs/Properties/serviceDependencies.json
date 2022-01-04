@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "storage1": {
+      "type": "storage",
+      "connectionId": "TableStorage"
+    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
