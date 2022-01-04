@@ -21,6 +21,7 @@
             <hr class="w-100">
         </div>
         <form id="account" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-4">
                 <label asp-for="Input.Email" class="form-label">E-pasts</label>
                 <input asp-for="Input.Email" class="form-control" placeholder="E-pasts" />
