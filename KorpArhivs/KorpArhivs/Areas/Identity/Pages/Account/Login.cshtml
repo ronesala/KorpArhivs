@@ -9,10 +9,12 @@
 <div class="row align-items-center p-3 pt-2">
     <div class="col-md-6 border-end-md pb-4 p-sm-5 text-center">
         <h2 class="h3 mb-4 mb-sm-5">Laipni lūdzam!</h2>
-        <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-google fs-lg me-1"></i>*@Pieslēgties ar Google</a>
-        <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-facebook-f fs-lg me-3"></i>*@Pieslēgties ar Facebook</a>
-        <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="bi bi-microsoft fs-lg me-1"></i>*@Pieslēgties ar Microsoft</a>
-        <a class="btn btn-outline-secondary w-100 mb-3" href="#">@*<i class="fab fa-linkedin-in fs-lg me-1"></i>*@Pieslēgties ar LinkedIn</a>
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            @foreach (var provider in Model.ExternalLogins)
+            {
+                <button class="btn btn-outline-secondary w-100 mb-3" name="provider" value="@provider.Name">Pieslēgties ar @provider.DisplayName</button>
+            }
+        </form>
     </div>
     <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5 mt-5">
         <div class="d-flex align-items-center py-3 mb-3">
