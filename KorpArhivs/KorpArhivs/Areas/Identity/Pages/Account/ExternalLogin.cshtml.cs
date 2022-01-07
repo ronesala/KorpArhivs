@@ -50,7 +50,9 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "E-pasts")]
             public string Email { get; set; }
+
         }
 
         public IActionResult OnGetAsync()
