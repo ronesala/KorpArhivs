@@ -86,32 +86,35 @@ namespace KorpArhivs.Pages
         public class UploadModel
         {
 
-            [Required]
+            [Required(ErrorMessage = "Nosaukuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma nosaukums")]
-            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(255,ErrorMessage = "Notikums nedrīkst būt garāks par 255 simboliem")]
             public string EventName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Datuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma datums:")]
             public DateTime EventDate { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Apraksta lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma apraksts:")]
+            [StringLength(4000, ErrorMessage = "Notikuma apraksts nedrīkst būt garāks par 4000 simboliem")]
             public string EventDescription { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma atslēgas vārds ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma atslēgas vārds:")]
+            [StringLength(255, ErrorMessage = "Notikuma atslēgas vārds nedrīkst būt garāks par 255 simboliem")]
             public string Keyword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma Kategorija")]
             [Display(Name = "Kategorija:")]
             public string Category { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma apakškategorija ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma apakškategorija:")]
+            [StringLength(255, ErrorMessage = "Notikuma apakškategorija nedrīkst būt garāka par 255 simboliem")]
             public string EventSubcategory { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Jāpievieno vismaz viens fails")]
             [Display(Name = "Pievienojiet failu:")]
             public IFormFile[] Upload { get; set; }
         }
