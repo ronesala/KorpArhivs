@@ -28,7 +28,7 @@ namespace KorpArhivs.Pages
         public void OnGet()
         {
             Users = new List<AppUser>();
-            var users = _dbContext.Users;
+            var users = _dbContext.Users.ToList();
             foreach (var user in users)
             {
                 var userRole = _dbContext.UserRoles.FirstOrDefault(x => x.UserId == user.Id);
@@ -50,7 +50,8 @@ namespace KorpArhivs.Pages
             {
                 Text = "Loma nav piešķirta"
             });
-            foreach (var role in _dbContext.Roles)
+            var roles = _dbContext.Roles.ToList();
+            foreach (var role in roles)
             {
                 Roles.Add(new SelectListItem
                 {
