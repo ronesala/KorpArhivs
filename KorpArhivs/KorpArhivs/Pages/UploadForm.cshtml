@@ -14,15 +14,18 @@
             <div class="col-5 col-lg-5 mt-3 mb-2 me-3">
                 <div class="mt-2 mb-3">
                     <label asp-for="Input.EventName" class="form-label"></label>
-                    <input asp-for="Input.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" aria-label="EventName" maxlength="255">
+                    <input asp-for="Input.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" aria-label="EventName">
+                    <span asp-validation-for="Input.EventName" class="text-danger"></span>
                 </div>
                 <div class="mt-2 mb-3">
                     <label asp-for="Input.EventDate" class="form-label"></label>
                     <input asp-for="Input.EventDate" type="date" class="form-control mb-2" placeholder="piemēram: 22.03.2000" aria-label="EventDate">
+                    <span asp-validation-for="Input.EventDate" class="text-danger"></span>
                 </div>
                 <div class="mt-2 mb-3">
                     <label asp-for="Input.Keyword" class="form-label"></label>
-                    <input asp-for="Input.Keyword" type="text" class="form-control mb-2" placeholder="" aria-label="Keyword" maxlength="255">
+                    <input asp-for="Input.Keyword" type="text" class="form-control mb-2" placeholder="" aria-label="Keyword">
+                    <span asp-validation-for="Input.Keyword" class="text-danger"></span>
                 </div>
             </div>
 
@@ -39,12 +42,14 @@
                 </div>
                 <div class="col-12 mt-2 mb-3">
                     <label asp-for="Input.EventSubcategory" class="form-label"></label>
-                    <input asp-for="Input.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" aria-label="EventSubcategory" maxlength="255">
+                    <input asp-for="Input.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" aria-label="EventSubcategory">
+                    <span asp-validation-for="Input.EventSubcategory" class="text-danger"></span>
                 </div>
             </div>
             <div class="mt-2 mb-3">
                 <label asp-for="Input.EventDescription" class="form-label"></label>
-                <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="8" aria-label="EventDescription" maxlength="4000"></textarea>
+                <textarea asp-for="Input.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="8" aria-label="EventDescription"></textarea>
+                <span asp-validation-for="Input.EventDescription" class="text-danger"></span>
             </div>
             <div class="col-12 mt-2 mb-3">
                 <label asp-for="Input.Upload" class="form-label"></label>
