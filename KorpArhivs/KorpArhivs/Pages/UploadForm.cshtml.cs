@@ -80,7 +80,7 @@ namespace KorpArhivs.Pages
                 await blobClient.UploadAsync(memoryStream, true);
             }
 
-            return RedirectToPage("/UploadedEvent", new { category = Category, id = guid });
+            return RedirectToPage("/UploadedEvent", new { category = Input.Category, id = guid });
         }
 
         public class UploadModel
@@ -88,6 +88,7 @@ namespace KorpArhivs.Pages
 
             [Required]
             [Display(Name = "Notikuma nosaukums")]
+            [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             public string EventName { get; set; }
 
             [Required]

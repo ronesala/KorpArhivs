@@ -88,6 +88,8 @@ namespace KorpArhivs
                 options.Conventions.AuthorizeFolder("/Identity/Account/Manage");
 
                 options.Conventions.AllowAnonymousToPage("/index");
+
+                options.Conventions.AllowAnonymousToPage("/Privacy");
             });
         }
 

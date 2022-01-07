@@ -34,7 +34,7 @@
                 {
                     <input class="" type="hidden" asp-for="@Model.Users[i].Id">
                     <tr>
-                        <th scope="row" class="align-middle">1</th>
+                        <th scope="row" class="align-middle">@i+1</th>
                         <td class="align-middle">@Model.Users[i].Name</td>
                         <td class="align-middle">@Model.Users[i].Surname</td>
                         <td class="align-middle">@Model.Users[i].Email</td>
