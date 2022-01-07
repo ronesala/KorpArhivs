@@ -27,6 +27,7 @@ namespace KorpArhivs.Pages
 
             var tableClient = new TableClient(connectionString, tableName);
 
+            //Events by category other 
             var various = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Dažādi'");
 
             Various = new List<Other>();

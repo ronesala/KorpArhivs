@@ -54,6 +54,7 @@ namespace KorpArhivs.Pages
             FileCount = (await GetAllBlobs(category, id)).Count;
         }
 
+        //Delete the entire event 
         public async Task<IActionResult> OnPost()
         {
             var category = (string)RouteData.Values["category"];

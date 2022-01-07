@@ -71,7 +71,7 @@ namespace KorpArhivs.Pages
                     {
                         if (user.Role == "Loma nav piešķirta")
                         {
-                            //ja loma ir piešķirta un tagad tā ir "Loma nav piešķirta", tad lomu dzēšam
+                            //if the role is assigned and now it is "Role not assigned", then the role is deleted 
                             _dbContext.UserRoles.Remove(userRole);
                             await _dbContext.SaveChangesAsync();
                         }
@@ -79,7 +79,7 @@ namespace KorpArhivs.Pages
                         {
                             if (userRole.RoleId != user.Role)
                             {
-                                //ja loma ir piešķirta un tagad tā ir cita loma, tad to atjaunojam
+                                //if a role is assigned and now it is a different role, we renew it 
                                 _dbContext.UserRoles.Remove(userRole);
                                 await _dbContext.SaveChangesAsync();
                                 _dbContext.UserRoles.Add(new IdentityUserRole<string>

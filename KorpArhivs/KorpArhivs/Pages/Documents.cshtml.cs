@@ -27,6 +27,7 @@ namespace KorpArhivs.Pages
 
             var tableClient = new TableClient(connectionString, tableName);
 
+            //Events by category documents 
             var documents = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Dokumenti'");
 
             Documents = new List<Document>();
