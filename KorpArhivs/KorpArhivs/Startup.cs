@@ -37,6 +37,7 @@ namespace KorpArhivs
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //Defining Client IDs and ClientSecrets 
             services.AddAuthentication()
                 .AddGoogle(googleOptions =>
                 {
@@ -60,7 +61,7 @@ namespace KorpArhivs
                 });
 
 
-
+            //Defining user roles
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsInRole", policy =>
@@ -73,6 +74,7 @@ namespace KorpArhivs
                     policy.RequireRole("Administrator"));
             });
 
+            //Rights to access the views 
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/", "IsInRole");
@@ -80,10 +82,8 @@ namespace KorpArhivs
                 options.Conventions.AuthorizePage("/Users", "IsAdministrator");
 
                 options.Conventions.AuthorizePage("/EditEvent", "IsAdministrator");
-                //options.Conventions.AuthorizePage("/EditEvent", "IsEditor");
 
                 options.Conventions.AuthorizePage("/DeleteEventConfirmation", "IsAdministrator");
-                //options.Conventions.AuthorizePage("/DeleteEventConfirmation", "IsEditor");
 
                 options.Conventions.AuthorizeFolder("/Identity/Account/Manage");
 

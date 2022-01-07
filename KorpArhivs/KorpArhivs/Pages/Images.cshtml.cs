@@ -37,6 +37,7 @@ namespace KorpArhivs.Pages
 
             var tableClient = new TableClient(connectionString, tableName);
 
+            //Events by category images 
             var galleries = tableClient.Query<TableEntity>(filter: $"PartitionKey eq 'Bildes'");
 
             Galleries = new List<Gallery>();

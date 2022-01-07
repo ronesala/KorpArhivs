@@ -9,6 +9,7 @@
 <div class="row align-items-center p-3 pt-2">
     <div class="col-md-6 border-end-md pb-4 p-sm-5 text-center">
         <h2 class="h3 mb-4 mb-sm-5">Laipni lūdzam!</h2>
+        @*External login*@
         <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             @foreach (var provider in Model.ExternalLogins)
             {
@@ -35,9 +36,6 @@
                 </div>
                 <div class="password-toggle">
                     <input asp-for="Input.Password" class="form-control" placeholder="Parole" />
-                    <div class="d-flex justify-content-end pt-3">
-                        <a id="forgot-password" asp-page="./ForgotPassword" class="fs-sm">Aizmirsi paroli?</a>
-                    </div>
                 </div>
             </div>
             <button class="btn btn-secondary btn-lg w-100" type="submit">Pieslēgties</button>

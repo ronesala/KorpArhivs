@@ -40,6 +40,7 @@ namespace KorpArhivs.Pages
 
         public async Task OnGet(string category, string id)
         {
+            //getting event by event category and id
             Category = category;
             Id = id;
 
