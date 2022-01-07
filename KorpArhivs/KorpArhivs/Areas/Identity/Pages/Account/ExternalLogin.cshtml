@@ -10,9 +10,8 @@
 <hr />
 
 <p id="external-login-description" class="text-info">
-    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-    Please enter an email address for this site below and click the Register button to finish
-    logging in.
+    Jūs esat veiksmīgi reģistrējies ar <strong>@Model.ProviderDisplayName</strong>.
+    Lūdzu ievadiet savu e-pastu un pabeidziet reģistrāciju, lai veiksmīgi ienāktu savā profilā.
 </p>
 
 <div class="row">
@@ -24,7 +23,7 @@
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">Reģistrēties</button>
         </form>
     </div>
 </div>

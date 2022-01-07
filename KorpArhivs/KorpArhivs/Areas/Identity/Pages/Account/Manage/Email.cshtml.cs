@@ -30,8 +30,10 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
+        [Display(Name = "E-pasts")]
 
         public string Email { get; set; }
+        [Display(Name = "E-pasts")]
 
         public bool IsEmailConfirmed { get; set; }
 
@@ -45,7 +47,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "Jauns e-pasts")]
             public string NewEmail { get; set; }
         }
 
@@ -67,7 +69,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Neizdevās ielādēt lietotāju ar ID  '{_userManager.GetUserId(User)}'.");
             }
 
             await LoadAsync(user);
@@ -79,7 +81,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Neizdevās ielādēt lietotāju ar ID  '{_userManager.GetUserId(User)}'.");
             }
 
             if (!ModelState.IsValid)

@@ -71,13 +71,13 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (remoteError != null)
             {
-                ErrorMessage = $"Error from external provider: {remoteError}";
+                ErrorMessage = $"Kļūda no ārējās identitātes pakalpojumu sniedzēja: {remoteError}";
                 return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information.";
+                ErrorMessage = "Kļūda lādējot ārējās identitātes informāciju.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -115,7 +115,7 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {
-                ErrorMessage = "Error loading external login information during confirmation.";
+                ErrorMessage = "Kļūda lādējot ārējās identitātes informāciju apstiprinājuma laikā.";
                 return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
 
@@ -140,8 +140,8 @@ namespace KorpArhivs.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        await _emailSender.SendEmailAsync(Input.Email, "Apstipriniet savu e-pastu",
+                            $"Lūdzu apstipriniet savu profilu <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>spied te</a>.");
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)

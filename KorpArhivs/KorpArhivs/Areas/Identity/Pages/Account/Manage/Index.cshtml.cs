@@ -38,9 +38,11 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
             [Display(Name = "Vārds")]
             public string FirstName { get; set; }
 
+            [Required]
             [Display(Name = "Uzvārds")]
             public string LastName { get; set; }
 
