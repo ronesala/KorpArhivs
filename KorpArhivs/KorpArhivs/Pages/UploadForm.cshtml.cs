@@ -36,51 +36,55 @@ namespace KorpArhivs.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            //Id= id;
 
-            var tableName = _configuration["StorageTables:Events"];
-            var containerName = _configuration["StorageBlobs:Events"];
-            var connectionString = _configuration.GetConnectionString("TableStorage");
-
-            var tableClient = new TableClient(connectionString, tableName);
-
-            var guid = Guid.NewGuid().ToString();
-
-            // Make a dictionary entity by defining a <see cref="TableEntity">.
-            var entity = new TableEntity(Input.Category, guid)
+            if (ModelState.IsValid)
             {
-                { "Name", Input.EventName },
-                { "Date", Input.EventDate.ToUniversalTime()},
-                { "Description", Input.EventDescription },
-                { "Keyword", Input.Keyword },
-                { "Group", Input.Category },
-                { "EventSubcategory", Input.EventSubcategory }
+                var tableName = _configuration["StorageTables:Events"];
+                var containerName = _configuration["StorageBlobs:Events"];
+                var connectionString = _configuration.GetConnectionString("TableStorage");
 
-            };
+                var tableClient = new TableClient(connectionString, tableName);
 
-            tableClient.AddEntity(entity);
+                var guid = Guid.NewGuid().ToString();
 
-            // Create a BlobServiceClient object which will be used to create a container client
-            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+                // Make a dictionary entity by defining a <see cref="TableEntity">.
+                var entity = new TableEntity(Input.Category, guid)
+                {
+                    { "Name", Input.EventName },
+                    { "Date", Input.EventDate.ToUniversalTime()},
+                    { "Description", Input.EventDescription },
+                    { "Keyword", Input.Keyword },
+                    { "Group", Input.Category },
+                    { "EventSubcategory", Input.EventSubcategory }
+                };
 
-            // Create the container and return a container client object
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                tableClient.AddEntity(entity);
 
-            foreach (var uploadedFile in Input.Upload)
-            {
-                using var memoryStream = new MemoryStream();
-                uploadedFile.CopyTo(memoryStream);
-                memoryStream.Position = 0;
+                // Create a BlobServiceClient object which will be used to create a container client
+                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
 
-                var fileName = $"{Input.Category}/{guid}/{uploadedFile.FileName}";
+                // Create the container and return a container client object
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-                // Get a reference to a blob
-                BlobClient blobClient = containerClient.GetBlobClient(fileName);
+                foreach (var uploadedFile in Input.Upload)
+                {
+                    using var memoryStream = new MemoryStream();
+                    uploadedFile.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
 
-                await blobClient.UploadAsync(memoryStream, true);
+                    var fileName = $"{Input.Category}/{guid}/{uploadedFile.FileName}";
+
+                    // Get a reference to a blob
+                    BlobClient blobClient = containerClient.GetBlobClient(fileName);
+
+                    await blobClient.UploadAsync(memoryStream, true);
+                }
+
+                return RedirectToPage("/UploadedEvent", new { category = Input.Category, id = guid });
             }
 
-            return RedirectToPage("/UploadedEvent", new { category = Input.Category, id = guid });
+            // If we got this far, something failed, redisplay form
+            return Page();
         }
 
         public class UploadModel
@@ -88,11 +92,12 @@ namespace KorpArhivs.Pages
 
             [Required(ErrorMessage = "Nosaukuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma nosaukums")]
-            [StringLength(255,ErrorMessage = "Notikums nedrīkst būt garāks par 255 simboliem")]
+            [StringLength(255, ErrorMessage = "Notikums nedrīkst būt garāks par 255 simboliem")]
             public string EventName { get; set; }
 
             [Required(ErrorMessage = "Datuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma datums:")]
+            [DataType(DataType.Date)]
             public DateTime EventDate { get; set; }
 
             [Required(ErrorMessage = "Apraksta lauks ir obligāti jāaizpilda")]

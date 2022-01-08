@@ -38,12 +38,14 @@ namespace KorpArhivs.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Vārda lauks ir obligāti jāaizpilda")]
             [Display(Name = "Vārds")]
+            [StringLength(30, ErrorMessage = "Vārds nedrīkst būt garāks par 30 simboliem")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Uzvārda lauks ir obligāti jāaizpilda")]
             [Display(Name = "Uzvārds")]
+            [StringLength(50, ErrorMessage = "Uzvārds nedrīkst būt garāks par 50 simboliem")]
             public string LastName { get; set; }
 
 

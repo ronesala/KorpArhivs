@@ -15,10 +15,12 @@
             <div class="mb-3">
                 <label asp-for="Input.FirstName"></label>
                 <input asp-for="Input.FirstName" class="form-control" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Input.LastName"></label>
                 <input asp-for="Input.LastName" class="form-control" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Username"></label>

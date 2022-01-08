@@ -84,13 +84,15 @@ namespace KorpArhivs.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            var tableName = _configuration["StorageTables:Events"];
-            var containerName = _configuration["StorageBlobs:Events"];
-            var connectionString = _configuration.GetConnectionString("TableStorage");
+            if (ModelState.IsValid)
+            {
+                var tableName = _configuration["StorageTables:Events"];
+                var containerName = _configuration["StorageBlobs:Events"];
+                var connectionString = _configuration.GetConnectionString("TableStorage");
 
-            var tableClient = new TableClient(connectionString, tableName);
+                var tableClient = new TableClient(connectionString, tableName);
 
-            var entity = new TableEntity(Category, Id)
+                var entity = new TableEntity(Category, Id)
             {
                 { "Name", Update.EventName },
                 { "Date", Update.EventDate.ToUniversalTime()},
@@ -100,74 +102,81 @@ namespace KorpArhivs.Pages
 
             };
 
-            tableClient.UpdateEntity(entity, ETag.All);
+                tableClient.UpdateEntity(entity, ETag.All);
 
-            // Create a BlobServiceClient object which will be used to create a container client
-            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+                // Create a BlobServiceClient object which will be used to create a container client
+                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
 
-            // Create the container and return a container client object
-            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+                // Create the container and return a container client object
+                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-            if (Update.Upload != null)
-            {
-                foreach (var uploadedFile in Update.Upload)
+                if (Update.Upload != null)
                 {
-                    using var memoryStream = new MemoryStream();
-                    uploadedFile.CopyTo(memoryStream);
-                    memoryStream.Position = 0;
+                    foreach (var uploadedFile in Update.Upload)
+                    {
+                        using var memoryStream = new MemoryStream();
+                        uploadedFile.CopyTo(memoryStream);
+                        memoryStream.Position = 0;
 
-                    var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
+                        var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
 
-                    // Get a reference to a blob
-                    BlobClient blobClient = containerClient.GetBlobClient(fileName);
+                        // Get a reference to a blob
+                        BlobClient blobClient = containerClient.GetBlobClient(fileName);
 
-                    await blobClient.UploadAsync(memoryStream, true);
+                        await blobClient.UploadAsync(memoryStream, true);
+                    }
                 }
-            }
 
 
-            var filesToDelete = UploadedFiles.Where(x => x.IsMarkedForDeletion);
+                var filesToDelete = UploadedFiles.Where(x => x.IsMarkedForDeletion);
 
-            if (filesToDelete.Any())
-            {
-                foreach (var file in filesToDelete)
+                if (filesToDelete.Any())
                 {
-                    BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
-                    await blobClient.DeleteAsync();
+                    foreach (var file in filesToDelete)
+                    {
+                        BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
+                        await blobClient.DeleteAsync();
+                    }
                 }
-            }
 
-            return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
+                return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
+            }
+            // If we got this far, something failed, redisplay form
+            return Page();
         }
 
         public class EditingModel
         {
 
-            [Required]
+            [Required(ErrorMessage = "Nosaukuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma nosaukums")]
+            [StringLength(255, ErrorMessage = "Notikums nedrīkst būt garāks par 255 simboliem")]
             public string EventName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Datuma lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma datums:")]
             public DateTimeOffset EventDate { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Apraksta lauks ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma apraksts:")]
+            [StringLength(4000, ErrorMessage = "Notikuma apraksts nedrīkst būt garāks par 4000 simboliem")]
             public string EventDescription { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma atslēgas vārds ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma atslēgas vārds:")]
+            [StringLength(255, ErrorMessage = "Notikuma atslēgas vārds nedrīkst būt garāks par 255 simboliem")]
             public string Keyword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma Kategorija")]
             [Display(Name = "Kategorija:")]
             public string Category { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Notikuma apakškategorija ir obligāti jāaizpilda")]
             [Display(Name = "Notikuma apakškategorija:")]
+            [StringLength(255, ErrorMessage = "Notikuma apakškategorija nedrīkst būt garāka par 255 simboliem")]
             public string EventSubcategory { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Jāpievieno vismaz viens fails")]
             [Display(Name = "Pievienojiet failu:")]
             public IFormFile[] Upload { get; set; }
         }

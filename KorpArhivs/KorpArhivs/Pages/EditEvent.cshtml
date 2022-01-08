@@ -14,28 +14,32 @@
                 <div class="col-5 col-lg-5 mt-3 mb-2 me-3">
                     <div class="mt-2 mb-3">
                         <label asp-for="Update.EventName" class="form-label"></label>
-                        <input asp-for="Update.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" aria-label="EventName" maxlength="255">
-
+                        <input asp-for="Update.EventName" type="text" class="form-control mb-2" placeholder="notikuma nosaukums" aria-label="EventName">
+                        <span asp-validation-for="Update.EventName" class="text-danger"></span>
                     </div>
                     <div class="mt-2 mb-3">
                         <label asp-for="Update.EventDate" class="form-label"></label>
                         <input asp-for="Update.EventDate" type="date" class="form-control mb-2" placeholder="piemēram: 22.03.2000" aria-label="EventDate">
+                        <span asp-validation-for="Update.EventDate" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="col-5 col-lg-5 ml-lg-auto mt-3 mb-2">
                     <div class="col-12 mt-2 mb-3">
                         <label asp-for="Update.EventSubcategory" class="form-label"></label>
-                        <input asp-for="Update.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" aria-label="EventSubcategory" maxlength="255">
+                        <input asp-for="Update.EventSubcategory" type="text" class="form-control mb-2" placeholder="apakškategorija" aria-label="EventSubcategory">
+                    <span asp-validation-for="Update.EventSubcategory" class="text-danger"></span>
                     </div>
                     <div class="mt-2 mb-3">
                         <label asp-for="Update.Keyword" class="form-label"></label>
-                        <input asp-for="Update.Keyword" type="text" class="form-control mb-2" placeholder="" aria-label="Keyword" maxlength="255">
+                        <input asp-for="Update.Keyword" type="text" class="form-control mb-2" placeholder="" aria-label="Keyword">
+                        <span asp-validation-for="Update.Keyword" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="mt-2 mb-3">
                     <label asp-for="Update.EventDescription" class="form-label"></label>
                     <textarea asp-for="Update.EventDescription" class="form-control mb-2" placeholder="apraksts" rows="8" aria-label="EventDescription" maxlength="4000"></textarea>
+                <span asp-validation-for="Update.EventDescription" class="text-danger"></span>
                 </div>
                 <div class="container">
                     @if (Model.Category == "Bildes")
@@ -94,6 +98,7 @@
                     <label asp-for="Update.Upload" class="form-label"></label>
                     <div class="mb-3">
                         <input asp-for="Update.Upload" class="form-control" type="file" id="formFileMultiple" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" multiple>
+                        <span asp-validation-for="Update.Upload" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
