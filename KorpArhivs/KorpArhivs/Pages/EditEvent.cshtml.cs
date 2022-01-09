@@ -84,15 +84,13 @@ namespace KorpArhivs.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            if (ModelState.IsValid)
-            {
-                var tableName = _configuration["StorageTables:Events"];
-                var containerName = _configuration["StorageBlobs:Events"];
-                var connectionString = _configuration.GetConnectionString("TableStorage");
+            var tableName = _configuration["StorageTables:Events"];
+            var containerName = _configuration["StorageBlobs:Events"];
+            var connectionString = _configuration.GetConnectionString("TableStorage");
 
-                var tableClient = new TableClient(connectionString, tableName);
+            var tableClient = new TableClient(connectionString, tableName);
 
-                var entity = new TableEntity(Category, Id)
+            var entity = new TableEntity(Category, Id)
             {
                 { "Name", Update.EventName },
                 { "Date", Update.EventDate.ToUniversalTime()},
@@ -102,47 +100,44 @@ namespace KorpArhivs.Pages
 
             };
 
-                tableClient.UpdateEntity(entity, ETag.All);
+            tableClient.UpdateEntity(entity, ETag.All);
 
-                // Create a BlobServiceClient object which will be used to create a container client
-                BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+            // Create a BlobServiceClient object which will be used to create a container client
+            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
 
-                // Create the container and return a container client object
-                BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            // Create the container and return a container client object
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
 
-                if (Update.Upload != null)
+            if (Update.Upload != null)
+            {
+                foreach (var uploadedFile in Update.Upload)
                 {
-                    foreach (var uploadedFile in Update.Upload)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        uploadedFile.CopyTo(memoryStream);
-                        memoryStream.Position = 0;
+                    using var memoryStream = new MemoryStream();
+                    uploadedFile.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
 
-                        var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
+                    var fileName = $"{Category}/{Id}/{uploadedFile.FileName}";
 
-                        // Get a reference to a blob
-                        BlobClient blobClient = containerClient.GetBlobClient(fileName);
+                    // Get a reference to a blob
+                    BlobClient blobClient = containerClient.GetBlobClient(fileName);
 
-                        await blobClient.UploadAsync(memoryStream, true);
-                    }
+                    await blobClient.UploadAsync(memoryStream, true);
                 }
-
-
-                var filesToDelete = UploadedFiles.Where(x => x.IsMarkedForDeletion);
-
-                if (filesToDelete.Any())
-                {
-                    foreach (var file in filesToDelete)
-                    {
-                        BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
-                        await blobClient.DeleteAsync();
-                    }
-                }
-
-                return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
             }
-            // If we got this far, something failed, redisplay form
-            return Page();
+
+
+            var filesToDelete = UploadedFiles.Where(x => x.IsMarkedForDeletion);
+
+            if (filesToDelete.Any())
+            {
+                foreach (var file in filesToDelete)
+                {
+                    BlobClient blobClient = containerClient.GetBlobClient(file.BlobName);
+                    await blobClient.DeleteAsync();
+                }
+            }
+
+            return RedirectToPage("/UploadedEvent", new { category = Category, id = Id });
         }
 
         public class EditingModel
@@ -153,7 +148,7 @@ namespace KorpArhivs.Pages
             [StringLength(255, ErrorMessage = "Notikums nedrīkst būt garāks par 255 simboliem")]
             public string EventName { get; set; }
 
-            [Required(ErrorMessage = "Datuma lauks ir obligāti jāaizpilda")]
+            [Required]
             [Display(Name = "Notikuma datums:")]
             public DateTimeOffset EventDate { get; set; }
 
@@ -176,6 +171,7 @@ namespace KorpArhivs.Pages
             [StringLength(255, ErrorMessage = "Notikuma apakškategorija nedrīkst būt garāka par 255 simboliem")]
             public string EventSubcategory { get; set; }
 
+            [Required]
             [Display(Name = "Pievienojiet failu:")]
             public IFormFile[] Upload { get; set; }
         }
