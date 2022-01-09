@@ -176,7 +176,6 @@ namespace KorpArhivs.Pages
             [StringLength(255, ErrorMessage = "Notikuma apakškategorija nedrīkst būt garāka par 255 simboliem")]
             public string EventSubcategory { get; set; }
 
-            [Required(ErrorMessage = "Jāpievieno vismaz viens fails")]
             [Display(Name = "Pievienojiet failu:")]
             public IFormFile[] Upload { get; set; }
         }
